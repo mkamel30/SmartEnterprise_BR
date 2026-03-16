@@ -3,12 +3,191 @@
 @tailwind utilities;
 
 :root {
-  --primary: #0A2472;
-  --secondary: #1E40AF;
-  --accent: #3B82F6;
+  /* --- SMART ENTERPRISE SUITE BRAND COLORS --- */
+  /* Primary Navy Blue (from logo) #0A2472 */
+  --primary: 225 86% 25%;
+  --primary-foreground: 0 0% 100%;
+
+  --background: 210 20% 98%;
+  --foreground: 222 47% 11%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 47% 11%;
+
+  /* Secondary Navy #1E3A8A */
+  --secondary: 224 64% 33%;
+  --secondary-foreground: 210 40% 98%;
+
+  /* Muted / Surface Colors */
+  --muted: 210 40% 96%;
+  --muted-foreground: 215 16% 47%;
+
+  --accent: 225 86% 25%;
+  --accent-foreground: 0 0% 100%;
+
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 210 40% 98%;
+
+  --border: 214 32% 91%;
+  --input: 214 32% 91%;
+  --ring: 225 86% 25%;
+
+  --radius: 0.5rem;
+
+  --font-arabic: 'IBM Plex Sans Arabic', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+
+  /* Standardized Shadows with Smart Brand Touch */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-smart-glow: 0 0 20px rgba(108, 228, 240, 0.3);
+  --shadow-smart-card: 0 10px 15px -3px rgba(10, 36, 114, 0.1);
+
+  /* Semantic Colors */
+  --success: 85 54% 53%;
+  --success-foreground: 0 0% 100%;
+
+  --warning: 39 88% 64%;
+  --warning-foreground: 222 47% 11%;
+
+  --info: 185 81% 68%;
+  --info-foreground: 225 86% 25%;
 }
 
-body {
-  @apply bg-slate-50 text-slate-900;
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* ===== SMART ENTERPRISE SUITE DEFAULT DESIGN SYSTEM ===== */
+
+/* Headers - Dark Navy Gradient with White Text */
+.smart-header {
+  @apply bg-gradient-to-r from-[#0A2472] to-[#0A2472]/90 text-white;
+}
+
+.smart-header-text {
+  @apply text-white font-black;
+}
+
+/* Cards & Content Areas - White with Professional Borders */
+.smart-card {
+  @apply bg-white border-2 border-[#0A2472]/10 rounded-lg shadow-md;
+}
+
+.smart-card-header {
+  @apply border-b-2 border-[#0A2472]/10 pb-4;
+}
+
+.smart-card-footer {
+  @apply border-t-2 border-[#0A2472]/10 pt-4;
+}
+
+/* Labels & Text - Professional Navy Styling */
+.smart-label {
+  @apply font-black text-[#0A2472];
+}
+
+.smart-description {
+  @apply text-slate-600 text-sm;
+}
+
+/* Input Fields - Consistent Styling */
+.smart-input,
+.smart-textarea,
+.smart-select {
+  @apply w-full border-2 border-[#0A2472]/10 rounded-lg bg-white focus:ring-2 focus:ring-[#0A2472] focus:border-[#0A2472] outline-none transition-colors;
+}
+
+.smart-input::placeholder,
+.smart-textarea::placeholder {
+  @apply text-slate-400;
+}
+
+/* Buttons - Consistent Styling */
+.smart-btn-primary {
+  @apply bg-gradient-to-r from-[#0A2472] to-[#0A2472]/90 hover:from-[#0A2472]/90 hover:to-[#0A2472]/80 text-white font-bold shadow-md hover:shadow-lg transition-all h-11 px-6 rounded-lg;
+}
+
+.smart-btn-secondary {
+  @apply border-2 border-[#0A2472]/20 text-[#0A2472] hover:bg-[#0A2472]/5 hover:border-[#0A2472]/30 font-bold transition-colors h-11 px-6 rounded-lg;
+}
+
+.smart-btn-success {
+  @apply bg-gradient-to-r from-[#80C646] to-[#6DB840] hover:from-[#6DB840] hover:to-[#5CA630] text-white font-bold shadow-md hover:shadow-lg transition-all h-11 px-6 rounded-lg;
+}
+
+.smart-btn-danger {
+  @apply bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold shadow-md hover:shadow-lg transition-all h-11 px-6 rounded-lg;
+}
+
+/* Checkboxes & Radio Buttons */
+.smart-checkbox,
+.smart-radio {
+  @apply w-4 h-4 text-[#0A2472] rounded border-[#0A2472]/20 focus:ring-[#0A2472] accent-[#0A2472];
+}
+
+/* Badge & Status Elements */
+.smart-badge {
+  @apply inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold;
+}
+
+.smart-badge-primary {
+  @apply bg-[#0A2472]/10 text-[#0A2472];
+}
+
+.smart-badge-success {
+  @apply bg-[#80C646]/10 text-[#80C646];
+}
+
+.smart-badge-danger {
+  @apply bg-red-100 text-red-700;
+}
+
+.smart-badge-warning {
+  @apply bg-[#F5C451]/20 text-[#F5C451];
+}
+
+/* Info/Error Messages */
+.smart-alert {
+  @apply rounded-lg border-2 p-4 flex items-start gap-3 font-bold;
+}
+
+.smart-alert-error {
+  @apply bg-red-50 border-red-200 text-red-700;
+}
+
+.smart-alert-success {
+  @apply bg-[#80C646]/10 border-[#80C646]/20 text-[#80C646];
+}
+
+.smart-alert-warning {
+  @apply bg-[#F5C451]/10 border-[#F5C451]/20 text-[#F5C451];
+}
+
+.smart-alert-info {
+  @apply bg-[#6CE4F0]/10 border-[#6CE4F0]/20 text-[#0A2472];
+}
+
+/* Dividers & Separators */
+.smart-divider {
+  @apply h-px bg-gradient-to-r from-[#0A2472]/0 via-[#0A2472]/10 to-[#0A2472]/0;
+}
+
+/* Hover Effects */
+.smart-hover {
+  @apply hover:bg-[#0A2472]/3 transition-colors;
+}
+
+.smart-hover-lift {
+  @apply hover:shadow-lg hover:-translate-y-1 transition-all;
 }

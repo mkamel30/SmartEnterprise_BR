@@ -34,69 +34,79 @@ function MainLayout() {
   const activeTab = location.pathname === '/' ? 'dashboard' : location.pathname.split('/')[1];
 
   return (
-    <div className="flex h-screen bg-slate-50">
+    <div className="flex h-screen bg-background font-sans">
       {/* Sidebar */}
-      <div className="w-64 bg-slate-900 text-slate-300 flex flex-col">
-        <div className="p-6 border-b border-slate-800">
-          <h1 className="text-white font-black text-xl flex items-center gap-2">
-            <Shield className="text-blue-500" />
-            <span>Admin Portal</span>
-          </h1>
-          <p className="text-[10px] uppercase tracking-widest font-bold text-slate-500 mt-1">Smart Enterprise Suite</p>
+      <div className="w-72 bg-gradient-smart-purple text-white flex flex-col shadow-2xl z-20">
+        <div className="p-8 border-b border-white/10">
+          <div className="flex flex-col items-center gap-4">
+            <img src="/logo.png" alt="Smart Enterprise" className="h-16 w-auto drop-shadow-lg" />
+            <div className="text-center">
+              <h1 className="text-white font-black text-xl tracking-tighter uppercase">
+                Admin Portal
+              </h1>
+              <div className="h-1 w-12 bg-brand-cyan mx-auto mt-2 rounded-full shadow-glow"></div>
+            </div>
+          </div>
         </div>
         
-        <nav className="flex-1 p-4 space-y-2">
+        <nav className="flex-1 p-6 space-y-3 mt-4">
           <NavItem 
-            icon={<LayoutDashboard size={20} />} 
+            icon={<LayoutDashboard size={22} />} 
             label="Dashboard" 
             active={activeTab === 'dashboard'} 
             onClick={() => navigate('/')} 
           />
           <NavItem 
-            icon={<Building2 size={20} />} 
+            icon={<Building2 size={22} />} 
             label="Branches" 
             active={activeTab === 'branches'} 
             onClick={() => navigate('/branches')} 
           />
           <NavItem 
-            icon={<Settings size={20} />} 
+            icon={<Settings size={22} />} 
             label="Parameters" 
             active={activeTab === 'parameters'} 
             onClick={() => navigate('/parameters')} 
           />
           <NavItem 
-            icon={<Activity size={20} />} 
+            icon={<Activity size={22} />} 
             label="System Health" 
             active={activeTab === 'health'} 
             onClick={() => {}} 
           />
         </nav>
 
-        <div className="p-4 border-t border-slate-800">
+        <div className="p-6 border-t border-white/10 bg-black/10">
           <button 
             onClick={logout}
-            className="flex items-center gap-2 hover:text-white transition-colors w-full px-4 py-2"
+            className="flex items-center gap-3 text-white/70 hover:text-white transition-all w-full px-4 py-3 rounded-xl hover:bg-white/5 font-black uppercase tracking-widest text-xs"
           >
             <LogOut size={20} />
-            <span className="font-bold">Logout</span>
+            <span>Logout</span>
           </button>
         </div>
       </div>
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        <header className="bg-white border-b border-slate-200 h-16 flex items-center justify-between px-8 shrink-0">
-          <div className="flex items-center gap-2">
-            <h2 className="font-black text-slate-800 capitalize">{activeTab}</h2>
-          </div>
+        <header className="bg-white border-b border-border h-20 flex items-center justify-between px-10 shrink-0">
           <div className="flex items-center gap-4">
-            <div className="bg-green-100 text-green-700 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-tighter border border-green-200">Portal Online</div>
-            <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-black text-xs">A</div>
+            <div className="w-1.5 h-8 bg-brand-primary rounded-full"></div>
+            <h2 className="font-black text-2xl text-brand-primary tracking-tighter uppercase">{activeTab}</h2>
+          </div>
+          <div className="flex items-center gap-6">
+            <div className="flex flex-col items-end">
+               <div className="smart-badge smart-badge-success uppercase tracking-widest text-[10px]">
+                 <span className="w-2 h-2 rounded-full bg-success animate-pulse"></span>
+                 System Online
+               </div>
+            </div>
+            <div className="w-10 h-10 rounded-xl bg-brand-primary flex items-center justify-center text-white font-black text-sm shadow-lg shadow-brand-primary/20">A</div>
           </div>
         </header>
 
-        <main className="flex-1 overflow-y-auto p-8">
-          <div className="max-w-6xl mx-auto">
+        <main className="flex-1 overflow-y-auto p-10 bg-slate-50/50">
+          <div className="max-w-7xl mx-auto">
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/branches" element={<Branches />} />
@@ -113,14 +123,15 @@ function NavItem({ icon, label, active, onClick }: { icon: any, label: string, a
   return (
     <button 
       onClick={onClick}
-      className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-bold ${
+      className={`w-full flex items-center gap-4 px-5 py-4 rounded-2xl transition-all font-black uppercase tracking-widest text-[11px] ${
         active 
-          ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' 
-          : 'hover:bg-slate-800 hover:text-white'
+          ? 'bg-white text-brand-primary shadow-xl shadow-black/20 transform scale-[1.02]' 
+          : 'text-white/60 hover:text-white hover:bg-white/10'
       }`}
     >
-      {icon}
+      <span className={active ? 'text-brand-primary' : 'text-brand-cyan'}>{icon}</span>
       <span>{label}</span>
+      {active && <div className="ml-auto w-1.5 h-1.5 rounded-full bg-brand-primary"></div>}
     </button>
   );
 }

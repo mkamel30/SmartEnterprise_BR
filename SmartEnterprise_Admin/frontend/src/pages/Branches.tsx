@@ -75,84 +75,93 @@ export default function Branches() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-10">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-black text-slate-900 tracking-tighter italic">BRANCH REGISTRY</h1>
-          <p className="text-slate-500 font-medium italic">Manage and monitor all connected enterprise branches.</p>
+          <h1 className="text-4xl font-black text-brand-primary tracking-tighter uppercase italic">Branch Registry</h1>
+          <p className="text-slate-500 font-bold uppercase tracking-widest text-[10px] mt-1 italic">Manage and monitor all connected enterprise branches.</p>
         </div>
-        <div className="flex gap-3">
-          <button onClick={fetchBranches} className="p-3 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors shadow-sm">
-            <RefreshCw size={20} className={loading ? 'animate-spin' : ''} />
+        <div className="flex gap-4">
+          <button onClick={fetchBranches} className="h-14 w-14 flex items-center justify-center bg-white border-2 border-slate-100 rounded-2xl hover:bg-slate-50 transition-all shadow-sm">
+            <RefreshCw size={22} className={`${loading ? 'animate-spin text-brand-primary' : 'text-slate-400'}`} />
           </button>
           <button 
             onClick={() => handleOpenModal()}
-            className="flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-xl font-black shadow-lg shadow-blue-600/20 hover:bg-blue-700 transition-all hover:scale-[1.02] active:scale-95"
+            className="smart-btn-primary !h-14 flex items-center gap-3 px-8 uppercase tracking-[0.2em] text-[11px]"
           >
             <Plus size={20} />
-            <span>ADD BRANCH</span>
+            <span>Add Branch</span>
           </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {branches.length === 0 ? (
-          <div className="col-span-full bg-white border-2 border-dashed border-slate-200 rounded-3xl p-16 text-center">
-            <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6 text-slate-300">
-              <Building2 size={40} />
+          <div className="col-span-full smart-card border-none bg-white p-20 text-center relative overflow-hidden group">
+            <div className="absolute top-0 left-0 w-full h-1.5 bg-brand-cyan/20"></div>
+            <div className="w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-8 text-brand-primary/20 group-hover:scale-110 transition-transform">
+              <Building2 size={48} />
             </div>
-            <h3 className="font-black text-slate-900 text-2xl tracking-tight">No branches registered</h3>
-            <p className="text-slate-500 max-w-sm mx-auto mt-2 italic">Connect your first branch to start receiving real-time data and managing parameters centrally.</p>
+            <h3 className="font-black text-brand-primary text-3xl tracking-tighter uppercase mb-4">No branches registered</h3>
+            <p className="text-slate-400 font-bold uppercase tracking-widest text-xs max-w-sm mx-auto leading-relaxed">
+              Connect your first branch to start receiving real-time data and managing parameters centrally.
+            </p>
           </div>
         ) : (
           branches.map((branch: any) => (
-            <div key={branch.id} className="group bg-white p-7 rounded-[2.5rem] border border-slate-200 shadow-sm hover:shadow-xl hover:border-blue-200 transition-all duration-300">
-               <div className="flex justify-between items-start mb-6">
-                  <div className="bg-slate-50 p-4 rounded-2xl group-hover:bg-blue-50 transition-colors">
-                    <Building2 className="text-slate-400 group-hover:text-blue-500 transition-colors" size={24} />
-                  </div>
-                  <div className="flex flex-col items-end gap-2">
-                    <StatusBadge status={branch.status} />
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{branch.code}</span>
-                  </div>
-               </div>
+            <div key={branch.id} className="smart-card group hover-lift border-none overflow-hidden bg-white">
+               <div className={`h-2 w-full ${branch.status === 'ONLINE' ? 'bg-success' : 'bg-slate-200'}`}></div>
+               <div className="p-8">
+                <div className="flex justify-between items-start mb-8">
+                    <div className="bg-slate-50 p-5 rounded-3xl group-hover:bg-brand-primary/5 transition-colors">
+                      <Building2 className="text-brand-primary" size={28} />
+                    </div>
+                    <div className="flex flex-col items-end gap-3">
+                      <StatusBadge status={branch.status} />
+                      <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{branch.code}</span>
+                    </div>
+                </div>
 
-               <div className="mb-6">
-                  <h3 className="font-black text-2xl text-slate-900 tracking-tight leading-none mb-2 capitalize">{branch.name}</h3>
-                  <div className="flex items-center gap-2 text-slate-500">
-                    <Key size={14} className="shrink-0" />
-                    <code className="text-[10px] font-mono bg-slate-100 px-2 py-0.5 rounded truncate max-w-[150px]">{branch.apiKey}</code>
-                    <button onClick={() => copyToClipboard(branch.apiKey)} className="text-blue-500 hover:text-blue-700 p-1">
-                       <Copy size={12} />
-                    </button>
-                  </div>
-               </div>
+                <div className="mb-8">
+                    <h3 className="font-black text-2xl text-brand-primary tracking-tighter uppercase mb-2 leading-none">{branch.name}</h3>
+                    <div className="flex items-center gap-3 py-3 px-4 bg-slate-50 rounded-xl border border-slate-100">
+                      <Key size={14} className="text-brand-cyan" />
+                      <code className="text-[10px] font-black text-brand-primary/60 truncate flex-1">{branch.apiKey}</code>
+                      <button onClick={() => copyToClipboard(branch.apiKey)} className="text-brand-cyan hover:text-brand-primary transition-colors">
+                         <Copy size={14} />
+                      </button>
+                    </div>
+                </div>
 
-               {branch.authorizedHWID && (
-                 <div className="mb-6 p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">PC Binding (HWID)</p>
-                    <p className="text-xs font-mono font-bold text-slate-700 truncate">{branch.authorizedHWID}</p>
-                 </div>
-               )}
-               
-               <div className="flex items-center justify-between pt-6 border-t border-slate-50 mt-4">
-                  <div className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
-                    {branch.lastSeen ? `Last Seen: ${new Date(branch.lastSeen).toLocaleString()}` : 'Never Connected'}
+                {branch.authorizedHWID && (
+                  <div className="mb-8 p-5 bg-brand-primary/5 rounded-3xl border-2 border-brand-primary/5">
+                      <p className="text-[9px] font-black text-brand-primary/40 uppercase tracking-[0.3em] mb-2">Authenticated PC HWID</p>
+                      <p className="text-[10px] font-black text-brand-primary truncate">{branch.authorizedHWID}</p>
                   </div>
-                  <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button 
-                      onClick={() => handleOpenModal(branch)}
-                      className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all"
-                    >
-                      <Edit2 size={18} />
-                    </button>
-                    <button 
-                      onClick={() => handleDelete(branch.id)}
-                      className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all"
-                    >
-                      <Trash2 size={18} />
-                    </button>
-                  </div>
+                )}
+                
+                <div className="flex items-center justify-between pt-8 border-t border-slate-50">
+                    <div className="flex flex-col">
+                      <p className="text-[9px] font-black text-slate-300 uppercase tracking-widest">Last Network Pulse</p>
+                      <p className="text-[10px] font-black text-slate-500 uppercase">
+                        {branch.lastSeen ? new Date(branch.lastSeen).toLocaleString() : 'Never Active'}
+                      </p>
+                    </div>
+                    <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-all transform translate-x-4 group-hover:translate-x-0">
+                      <button 
+                        onClick={() => handleOpenModal(branch)}
+                        className="w-10 h-10 flex items-center justify-center text-slate-400 hover:text-brand-primary hover:bg-slate-50 rounded-xl transition-all"
+                      >
+                        <Edit2 size={18} />
+                      </button>
+                      <button 
+                        onClick={() => handleDelete(branch.id)}
+                        className="w-10 h-10 flex items-center justify-center text-slate-400 hover:text-destructive hover:bg-destructive/5 rounded-xl transition-all"
+                      >
+                        <Trash2 size={18} />
+                      </button>
+                    </div>
+                </div>
                </div>
             </div>
           ))
@@ -161,77 +170,79 @@ export default function Branches() {
 
       {/* BRANCH MODAL */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-white rounded-[3rem] w-full max-w-md overflow-hidden shadow-2xl animate-in zoom-in-95 duration-200">
-            <div className="relative p-10">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-primary/60 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-white rounded-[3rem] w-full max-w-md overflow-hidden shadow-2xl animate-in zoom-in-95 duration-200 border border-white/20">
+            <div className="relative p-12">
               <button 
                 onClick={() => setIsModalOpen(false)}
-                className="absolute top-8 right-8 text-slate-400 hover:text-slate-900 transition-colors"
+                className="absolute top-8 right-8 text-slate-300 hover:text-brand-primary transition-colors"
               >
                 <X size={24} />
               </button>
 
               <div className="mb-10 text-center">
-                <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Building2 size={32} className="text-blue-600" />
+                <div className="w-20 h-20 bg-brand-primary/5 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Building2 size={36} className="text-brand-primary" />
                 </div>
-                <h3 className="font-black text-3xl text-slate-900 tracking-tighter italic">
-                  {editingBranch ? 'EDIT BRANCH' : 'NEW BRANCH'}
+                <h3 className="font-black text-3xl text-brand-primary tracking-tighter uppercase italic">
+                  {editingBranch ? 'Edit Branch' : 'New Branch'}
                 </h3>
-                <p className="text-slate-500 font-medium italic">Enter the branch details for registration.</p>
+                <p className="text-slate-400 font-bold uppercase tracking-widest text-[9px] mt-2">
+                  Enterprise Infrastructure Node
+                </p>
               </div>
 
-              <form onSubmit={handleSave} className="space-y-5">
-                <div className="space-y-1">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-4">Branch Name</label>
+              <form onSubmit={handleSave} className="space-y-6">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-brand-primary/60 uppercase tracking-widest ml-4">Branch Identity</label>
                   <input 
                     type="text" 
                     required
                     value={formData.name}
                     onChange={e => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full h-14 bg-slate-100 border-none rounded-2xl px-6 font-bold text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500/20 transition-all"
-                    placeholder="e.g., Cairo Main Branch"
+                    className="smart-input h-14 px-6 text-brand-primary font-black uppercase tracking-tight"
+                    placeholder="e.g., Cairo Main Hub"
                   />
                 </div>
-                <div className="space-y-1">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-4">Internal Code</label>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-brand-primary/60 uppercase tracking-widest ml-4">Network Code</label>
                   <input 
                     type="text" 
                     required
                     value={formData.code}
                     onChange={e => setFormData({ ...formData, code: e.target.value })}
-                    className="w-full h-14 bg-slate-100 border-none rounded-2xl px-6 font-bold text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500/20 transition-all"
+                    className="smart-input h-14 px-6 text-brand-primary font-black uppercase tracking-widest"
                     placeholder="e.g., BR001"
                   />
                 </div>
-                <div className="space-y-1">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-4 flex justify-between">
-                    <span>Authorized HWID (PC ID)</span>
-                    <span className="text-blue-500 lowercase normal-case">Optional</span>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-brand-primary/60 uppercase tracking-widest ml-4 flex justify-between">
+                    <span>Authorized HWID</span>
+                    <span className="text-brand-cyan lowercase normal-case opacity-60">Optional Security Layer</span>
                   </label>
                   <input 
                     type="text" 
                     value={formData.authorizedHWID}
                     onChange={e => setFormData({ ...formData, authorizedHWID: e.target.value })}
-                    className="w-full h-14 bg-slate-100 border-none rounded-2xl px-6 font-bold text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500/20 transition-all"
-                    placeholder="Hardware Identity String"
+                    className="smart-input h-14 px-6 text-brand-primary font-bold"
+                    placeholder="Hardware binding string"
                   />
                 </div>
 
-                <div className="pt-6 flex gap-3">
+                <div className="pt-8 flex gap-4">
                   <button 
                     type="button"
                     onClick={() => setIsModalOpen(false)}
-                    className="flex-1 h-14 flex items-center justify-center font-black text-slate-500 rounded-2xl hover:bg-slate-100 transition-colors uppercase tracking-widest text-xs"
+                    className="flex-1 h-14 flex items-center justify-center font-black text-slate-400 rounded-2xl hover:bg-slate-50 transition-colors uppercase tracking-widest text-[10px]"
                   >
                     Cancel
                   </button>
                   <button 
                     type="submit"
-                    className="flex-1 h-14 bg-slate-900 text-white flex items-center justify-center gap-2 font-black rounded-2xl shadow-xl shadow-slate-900/10 hover:bg-black transition-all hover:scale-[1.02] active:scale-95 uppercase tracking-widest text-xs"
+                    className="flex-1 h-14 bg-brand-primary text-white flex items-center justify-center gap-2 font-black rounded-2xl shadow-xl shadow-brand-primary/20 hover:scale-[1.02] active:scale-95 transition-all uppercase tracking-widest text-[10px]"
                   >
                     <Check size={18} />
-                    {editingBranch ? 'Update' : 'Register'}
+                    {editingBranch ? 'Update Node' : 'Register Node'}
                   </button>
                 </div>
               </form>
